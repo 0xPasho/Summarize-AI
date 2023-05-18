@@ -36,7 +36,7 @@ export default function Home() {
         />
         <button
           onClick={() => {
-            //TODO: call api
+            //TODO: call api, probably something like below using awaits:
             //setSummary(res.body.summary);
             setSummary(value);
           }}
