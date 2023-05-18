@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import { useRef, useState } from 'react';
-import useAutosizeTextArea from './useAutosizeTextArea';
+import useAutosizeTextArea from '../utils/useAutosizeTextArea';
 
 const inter = Inter({ subsets: ['latin'] });
 
