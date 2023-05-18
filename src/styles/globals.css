@@ -2,17 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'BrownLLWebBlack';
+  src: url('./fonts/BrownLLWeb-Black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'BrownLLWebBold';
+  src: url('./fonts/BrownLLWeb-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'BrownLLWebRegular';
+  src: url('./fonts/BrownLLWeb-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'BrownLLWebLight';
+  src: url('./fonts/BrownLLWeb-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'BrownLLWebMedium';
+  src: url('./fonts/BrownLLWeb-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'BrownLLWebThin';
+  src: url('./fonts/BrownLLWeb-Thin.woff') format('woff');
+}
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 0, 123, 52;
+  --background-start-rgb: 255, 251, 237;
+  --background-end-rgb: 255, 251, 237;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 0, 123, 52;
+    --background-start-rgb: 255, 251, 237;
+    --background-end-rgb: 255, 251, 237;
   }
 }
 
@@ -24,4 +54,55 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+.textBox {
+  margin: 20px 0;
+  width: 100%;
+  height: 400px;
+  color: rgb(35, 46, 46);
+  padding: 10px;
+  resize: none;
+  border-radius: 20px;
+  font-family: 'BrownLLWebRegular';
+}
+
+button {
+  background-color: rgb(0, 123, 52);
+  color: white;
+  width: 150px;
+  padding: 15px;
+  border-radius: 30px;
+  align-self: center;
+  font-family: 'BrownLLWebMedium';
+}
+
+.mainForm {
+  font-family: Helvetica;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 50px;
+  font-family: 'BrownLLWebRegular';
+}
+
+h1 {
+  font-size: 80px;
+  font-family: 'BrownLLWebBold';
+}
+
+h2 {
+  font-size: 40px;
+  font-weight: medium;
+  margin-bottom: 15px;
+  font-family: 'BrownLLWebMedium';
+}
+
+.summary {
+  width: 100%;
+  background-color: rgb(241, 234, 222);
+  border-radius: 20px;
+  padding: 20px;
+  font-family: 'BrownLLWebRegular';
 }
