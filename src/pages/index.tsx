@@ -37,6 +37,7 @@ export default function Home() {
         <button
           onClick={() => {
             //TODO: call api
+            //setSummary(res.body.summary);
             setSummary(value);
           }}
         >
