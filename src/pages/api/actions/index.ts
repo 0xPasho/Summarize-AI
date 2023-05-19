@@ -2,12 +2,12 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import qs from 'qs';
 
-const access_token = 'xoxb-5278004101669-5305980338800-HLXxTY7Fqhw4uisHENjeYnJa';
+
 const getUserInfo = async (user:any) => {
   
     const res = await axios.get(`https://slack.com/api/users.info?user=${user}`, {
      headers: {
-       'Authorization': `Bearer ${access_token} `
+       'Authorization': `Bearer ${process.env.ACCESS_TOKEN} `
      }
    })
    const data = await res.data;
@@ -27,7 +27,13 @@ const getUserInfo = async (user:any) => {
  }
  
  const sendMessage= async(script:String, user:any, initalMessage:any) => {
-   const username = await getUserInfo(user.id)
+   const username = await getUserInfo(user.id);
+
+   const resp = await axios.post('https://summarizeai.vercel.app//api/summarizeConversation',{
+    content: script
+   });
+   const summary = await resp.data;
+
     let blocks = [
      {
        type: 'section',
@@ -40,7 +46,7 @@ const getUserInfo = async (user:any) => {
        type: 'section',
        text: {
          type: 'mrkdwn',
-         text: `*Summary✨*\n\n${script}`
+         text: `*Summary✨*\n\n${summary.summary}`
        }
      }
    ];
@@ -51,23 +57,21 @@ const getUserInfo = async (user:any) => {
      blocks: JSON.stringify(blocks)
    }
  
-   axios.post(`https://slack.com/api/chat.postMessage`, qs.stringify(message), {
+    await axios.post(`https://slack.com/api/chat.postMessage`, qs.stringify(message), {
      headers: {
-       'Authorization': `Bearer ${access_token}`
-     }}).then(res => console.log('success!'));
+       'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`
+    }});
+
  }
  
 
-export default async function handler(req: NextApiRequest, _res: NextApiResponse){
-    const payload = req.body.payload;
-    console.log(payload); 
-    const payloadFormat =  JSON.parse(payload);
-    const { user, message, channel} = payloadFormat; 
-    console.log({ "user": user, "message": message, "channel": channel})
+export default async function handler(req: NextApiRequest, response: NextApiResponse){
+    const payload = JSON.parse(req.body.payload);
+    const { user, message, channel} = payload; 
 
     axios.get(`https://slack.com/api/conversations.replies?channel=${channel.id}&ts=${message.ts}&include_all_metadata=true`, {
     headers: {
-      'Authorization': `Bearer ${access_token}`
+      'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`
     }
     }).then(async(res) => {
         const { messages} = res.data;
@@ -80,5 +84,8 @@ export default async function handler(req: NextApiRequest, _res: NextApiResponse
     .catch((error) => {
         console.error('Error in getting replies',error)
     })
+
+    response.status(200);
+
    
 }
