@@ -106,3 +106,7 @@ h2 {
   padding: 20px;
   font-family: 'BrownLLWebRegular';
 }
+
+.summary pre {
+  white-space: pre-wrap;
+}

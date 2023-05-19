@@ -20,13 +20,11 @@ export default function Home() {
   };
 
   const handleAPICall = async() => {
-    console.log('___summarizing');
     try{
       const resp = await axios.post('https://summarizeai.vercel.app//api/summarizeConversation',{
         content: value
        });
        const summary = await resp.data;
-       console.log('___summary', summary)
        setSummary(summary.summary);
     }catch(err){
       console.log('Error requesting ai api - ', err);
